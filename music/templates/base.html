@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>DS^2</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  </head>
+  <body>
+    <header class="">
+      <nav>
+        <div class="">
+          <ul>
+            <li>
+              <a href="{% url 'home' %}" class="">&nbsp;&nbsp;BirdCollector</a>
+            </li>
+          </ul>
+          <ul class="">
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+            <li><a href=""></a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="">
+        {% block content %} 
+        {% endblock %}
+    </main>
+    <footer class="">
+      <div class="">
+        All Rights Reserved, &copy; 2022 DS^2 &nbsp;
+      </div>
+    </footer>
+  </body>
+</html>
