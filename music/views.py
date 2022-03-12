@@ -5,15 +5,31 @@ import lyricsgenius
 client_access_token = "kLxktps7zneNyDod1aF4g-Uy_RDBblfNvL-CK-aACZzVJ6dXNNhqgQLfq-v6q3od"
 genius = lyricsgenius.Genius(client_access_token)
 
+from .forms import ArtistTitle, LyricForm
 # Create your views here.
 
 
 def get_home(request):
     return render(request, 'home.html')
 
+
 def search_artist_title(request):
-    return render(request, 'search_content/search_artist_title.html')
+    form = ArtistTitle()
+    if request.method == "POST":
+        form = ArtistTitle(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            artist_title = cd.get('artist_title')
+            print(cd)
+            return redirect('artist_title_result', artist_title = artist_title)
+
+    return render(request, 'search_content/search_artist_title.html', {'form': form})
     
+
+def get_artist_title_result(request, artist_title):
+    return render(request, 'search_content/search_lyric.html', {'artist_title': artist_title})
+
+
 def search_lyric(request):
     form = LyricForm()
     if request.method == "POST":
