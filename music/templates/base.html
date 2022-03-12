@@ -9,21 +9,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>DS^2</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
   </head>
-  <body>
-    <header class="">
-      <nav>
-        <div class="">
+  <body class="dark:bg-slate-900">
+    <header class="h-16 dark:bg-gray-800">
+      <nav class="">
+        <div class="text-lg flex text-white justify-between h-8 md:text-xl">
           <ul>
             <li>
-              <a href="{% url 'home' %}" class="font-extrabold">&nbsp;&nbsp;BirdCollector</a>
+              <a href="{% url 'home' %}" class="font-extrabold">&nbsp;&nbsp;DS^2</a>
             </li>
           </ul>
-          <ul class="">
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
-            <li><a href=""></a></li>
+          <ul class="flex space-x-5 px-2">
+            <li><a href="{% url 'search_artist_title' %}">Artist/Title</a></li>
+            <li><a href="{% url 'search_lyric' %}">Lyrics</a></li>
           </ul>
         </div>
       </nav>
@@ -32,8 +30,8 @@
         {% block content %} 
         {% endblock %}
     </main>
-    <footer class="">
-      <div class="">
+    <footer class="fixed bottom-0 w-full h-12 dark:bg-gray-900 items-center">
+      <div class="text-white text-center">
         All Rights Reserved, &copy; 2022 DS^2 &nbsp;
       </div>
     </footer>
