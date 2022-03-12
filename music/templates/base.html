@@ -2,7 +2,9 @@
 
 <!DOCTYPE html>
 <html lang="en">
+  {% load tailwind_tags %}
   <head>
+    {% tailwind_css %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -15,7 +17,7 @@
         <div class="">
           <ul>
             <li>
-              <a href="{% url 'home' %}" class="">&nbsp;&nbsp;BirdCollector</a>
+              <a href="{% url 'home' %}" class="font-extrabold">&nbsp;&nbsp;BirdCollector</a>
             </li>
           </ul>
           <ul class="">
