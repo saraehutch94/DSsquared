@@ -1,0 +1,55 @@
+.whole-logo {
+  width: 65px;
+  transform: rotate(0.5turn);
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.first-bar {
+  height: 55px;
+  width: 7px;
+  background-color: #5832fd;
+  border-radius: 10px;
+}
+
+.second-bar {
+  height: 60px;
+  width: 7px;
+  background-color: #2268fd;
+  border-radius: 10px;
+}
+
+.third-bar {
+  height: 65px;
+  width: 7px;
+  background-color: #04ccfe;
+  border-radius: 10px;
+}
+
+.fourth-bar {
+  height: 50px;
+  width: 7px;
+  background-color: #02eef4;
+  border-radius: 10px;
+}
+
+.fifth-bar {
+  height: 55px;
+  width: 7px;
+  background-color: #78fdfa;
+  border-radius: 10px;
+}
+
+.sixth-bar {
+  height: 62px;
+  width: 7px;
+  background-color: #5ddea6;
+  border-radius: 10px;
+}
+
+.seventh-bar {
+  height: 55px;
+  width: 7px;
+  background-color: #22c55e;
+  border-radius: 10px;
+}
