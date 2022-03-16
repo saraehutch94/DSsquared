@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="">Yo hello</h1>
-{% endblock %}
+<div class="flex justify-center px-48 py-48">
+    <div class="flex-col items-center">
+        <div class="border-teal-400 rounded-md">
+            <a href="{% url 'search_artist_title' %}" class="no-underline hover:underline text-white">Search by Artist and
+                Title</a> </br>
+        </div>
+        <div class="border-fuchsia-400 rounded-md">
+            <a href="{% url 'search_lyric' %}" class="no-underline hover:underline text-2xl text-white">Search By Lyric</a>
+        </div>
+    </div>
+</div>
 
+{% endblock %}
