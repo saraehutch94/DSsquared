@@ -5,3 +5,7 @@ class ArtistTitle(forms.Form):
 
 class LyricForm(forms.Form):
     enter_lyrics = forms.CharField(max_length=100)
+
+class SongForm(forms.Form):
+    song = forms.CharField(max_length=100)
+
