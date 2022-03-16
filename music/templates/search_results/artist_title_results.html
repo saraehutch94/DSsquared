@@ -1,6 +1,25 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
 
-<h1>Lyrics Result Page</h1>
+{% block content %}
+<article class="flex flex-col items-center max-h-full" style="margin-top: 30px; gap: 30px;">
+    <h1 class="text-white text-5xl">Artist Result Page</h1>
+    <h3 class="text-white font-extrabold text-4xl">{{ artist_name }}</h3>
 
-<h3>{{ artist_title_result }}</h3>
+    <div>
+        <img class="mx-auto rounded-full" style="height: 400px;" src="{{ artist_img }}" alt="">
+    </div>
+
+    <div class="max-w-2xl sm: text-sm" style="margin-bottom: 50px;">
+        <h4 class="text-white text-center text-2xl">Top 5 Songs</h4>
+        {% for song in artist_songs %}
+        <ul class="max-w-2xl">
+            <li class="text-white" style="margin-top: 10px;">
+                {{ song }}
+            </li>
+        </ul>
+        {% endfor %}
+    </div>
+
+</article>
+
 {% endblock %}
