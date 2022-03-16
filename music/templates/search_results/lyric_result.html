@@ -1,12 +1,19 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>Lyrics Result Page</h1>
+<!-- flex justify-center -->
 
-<h3>{{ song_title }}</h3>
-<h3>{{ song_artist }}</h3>
-<p class="font-extrabold">{{ song_description }}</p>
-
-<img src="{{ song_art_image_url }}" alt="song cover art" />
-
-<p>{{ song_lyrics }}</p>
+<div class="container mx-auto text-gray-700 dark:text-white">
+  <div class="flex flex-col items-center">
+    <img
+      src="{{ song_art_image_url }}"
+      alt="song cover art"
+      height="350px"
+      width="350px"
+    />
+    <div>{{ song_title }}</div>
+    <div>{{ song_artist }}</div>
+    <div>{{ song_description }}</div>
+    <div>{{ song_lyrics }}</div>
+  </div>
+</div>
 {% endblock %}
