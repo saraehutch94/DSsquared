@@ -1,9 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en" class="dark">
-  {% load tailwind_tags %}
   <head>
-    {% tailwind_css %}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -78,33 +76,5 @@
       </footer>
     </div>
   </div>
-  <script>
-    // Variables
-
-    const checkbox = document.querySelector("#toggle");
-    const html = document.querySelector("html");
-    const btn = document.querySelector('button.mobile-menu-button');
-    const menu = document.querySelector('.mobile-menu');
-
-    // Functions
-
-    const toggleMode = () => {
-      checkbox.checked
-        ? html.classList.add("dark")
-        : html.classList.remove("dark");
-    };
-
-    // Call toggleMode on page load
-
-    toggleMode();
-
-    // Event listeners
-
-    checkbox.addEventListener("click", toggleMode);
-
-    btn.addEventListener('click', () => {
-        menu.classList.toggle("hidden");
-    })
-  </script>
   </body>
 </html>
