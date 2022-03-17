@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import ArtistTitle, LyricForm, SongForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
 
 import lyricsgenius
 client_access_token = "kLxktps7zneNyDod1aF4g-Uy_RDBblfNvL-CK-aACZzVJ6dXNNhqgQLfq-v6q3od"
@@ -103,3 +105,18 @@ def song_result(request, song):
         'song_art_image': song_art_image
     })
   
+def signup(request):
+    error_message = ''
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+        else:
+            error_message = 'invalid request, please try again'
+    form = UserCreationForm()
+    
+    return render(request, 'registration/signup.html', { 
+        'form': form, 'error': error_message 
+    })
