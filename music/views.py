@@ -87,10 +87,19 @@ def search_song(request):
             return redirect('song_result', song = song)
     return render(request, 'search_content/search_song.html', {'form': form})
 
+
 def song_result(request, song):
     song = genius.search_song(title=song, get_full_info=True)
-    print(song.lyrics)
+    song_artist = song.artist
+    song_title = song.title
+    song_lyrics = song.lyrics
+    song_art_image = song.song_art_image_url
+
+
     return render(request, 'search_results/song_result.html', {
-        'song': song
+        'song_artist': song_artist,
+        'song_title': song_title,
+        'song_lyrics': song_lyrics,
+        'song_art_image': song_art_image
     })
   
