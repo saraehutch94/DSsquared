@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex justify-center relative top-48">
+    <form action="" method="POST" class="flex flex-col items-center">
+        {% csrf_token %} 
+        <label class="text-green-500">Search Artist or Title</label>
+        {{ form.as_p }}
+        <input type="submit" value="Search"
+        class="text-lg rounded-full bg-green-500 w-20 mt-4 hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer text-white">
+    </form>
+</div>
+
+
+{% endblock %}
