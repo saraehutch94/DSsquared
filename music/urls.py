@@ -10,5 +10,5 @@ urlpatterns = [
     path('lyric-result/<str:lyrics>/', views.lyric_result, name='lyric_result'),
     path('search-song/', views.search_song, name='search_song'),
     path('song-result/<str:song>/', views.song_result, name='song_result'),
-
+    path('accounts/signup/', views.signup, name='signup'),
 ]
