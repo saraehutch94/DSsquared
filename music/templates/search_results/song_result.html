@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ song_title }} by <strong>{{ song_artist }}</strong></h1>
+    <img src="{{ song_art_image }}" alt="song image">
+    <p>{{ song_lyrics }}</p>
+{% endblock %}
