@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="valign-wrapper center-block center-align container">
+
+    <h3 class="white-text">Rating: {{ song_rating_detail.rating }}</h3>
+
+    <img src="{{ song_rating_detail.song_art_image }}" height="300px" width="300px"/>
+
+    <div class="white-text">Title: {{ song_rating_detail.song_title }}</div>
+    <div class="white-text">Artist: {{ song_rating_detail.song_artist }}</div>
+    <div class="white-text">Lyrics: {{ song_rating_detail.song_lyrics }}</div>
+
+    <a href="{% url 'song_rating_update' song_rating_detail.id user.id %}" class="waves-effect waves-light btn">Update Rating</a>
+    <a href="{% url 'song_rating_delete' song_rating_detail.id user.id %}" class="waves-effect waves-light red btn">Delete Rating</a>
+</div>
+
+{% endblock %}
