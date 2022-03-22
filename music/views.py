@@ -120,3 +120,144 @@ def signup(request):
     return render(request, 'registration/signup.html', { 
         'form': form, 'error': error_message 
     })
+
+
+@login_required
+def add_lyric_rating(request, song_id, user_id):
+    form = LyricRatingForm(request.POST)
+    if form.is_valid():
+        new_lyric_rating = form.save(commit=False)
+        new_lyric_rating.user_id = user_id
+        song = genius.song(song_id)
+        lyrics = genius.lyrics(song_id)
+        song_artists = song["song"]["artist_names"]
+        song_description = song["song"]["description"]["plain"]
+        song_art_image_url = song["song"]["song_art_image_url"]
+        song_title = song["song"]["title"]
+
+        substring = song_title + " " + "Lyrics"
+        new_lyrics = lyrics.replace(substring, "")
+
+        for substring in range(len(new_lyrics) -  10, len(new_lyrics) - 1):
+            if new_lyrics[substring].isdigit():
+                new_edited_lyrics = new_lyrics[:substring]
+                break
+
+        new_lyric_rating.song_lyrics = new_edited_lyrics
+        new_lyric_rating.song_title = song_title
+        new_lyric_rating.song_artist = song_artists
+        new_lyric_rating.song_description = song_description
+        new_lyric_rating.song_art_image_url = song_art_image_url
+        new_lyric_rating.save()
+    return redirect('ratings', user_id = user_id)
+
+@login_required
+def ratings(request, user_id):
+    lyric_ratings = LyricRatings.objects.filter(user_id=user_id)
+    artist_ratings = ArtistRating.objects.filter(user_id=user_id)
+    song_ratings = SongRating.objects.filter(user_id=user_id)
+    return render(request, 'ratings/ratings.html', {
+        'lyric_ratings': lyric_ratings,
+        'artist_ratings': artist_ratings,
+        'song_ratings': song_ratings,
+    })
+
+# lyric rating detail view function
+@login_required
+def lyric_rating_detail(request, rating_id, user_id):
+    lyric_rating = LyricRatings.objects.get(id=rating_id, user_id=user_id)
+    return render(request, 'ratings/lyric_rating_detail.html', {
+        'lyric_rating_detail': lyric_rating,
+    })
+
+class LyricRatingUpdate(LoginRequiredMixin, UpdateView):
+    model = LyricRatings
+    fields = ('rating',)
+
+class LyricRatingDelete(LoginRequiredMixin, DeleteView):
+    model = LyricRatings
+
+    def get_success_url(self):
+        return reverse('ratings', kwargs={'user_id': self.object.user_id})
+
+@login_required
+def add_artist_rating(request, artist_id, user_id):
+    form = ArtistRatingForm(request.POST)
+    if form.is_valid():
+        new_artist_rating = form.save(commit=False)
+        new_artist_rating.user_id = user_id
+        artist = genius.artist(artist_id)
+        artist_img = artist["artist"]["header_image_url"]
+        artist_name = artist["artist"]["name"]
+        artist_search_songs = genius.search_artist(artist_name, sort='popularity', max_songs=5, get_full_info=True)
+        artist_songs = artist_search_songs.songs
+
+        new_artist_rating.artist_img = artist_img
+        new_artist_rating.artist_name = artist_name
+        new_artist_rating.artist_songs = artist_songs
+        new_artist_rating.save()
+    return redirect('ratings', user_id = user_id)
+
+@login_required
+def artist_rating_detail(request, rating_id, user_id):
+    artist_rating = ArtistRating.objects.get(id=rating_id, user_id=user_id)
+    return render(request, 'ratings/artist_rating_detail.html', {
+        'artist_rating_detail': artist_rating
+    })
+
+class ArtistRatingUpdate(LoginRequiredMixin, UpdateView):
+    model = ArtistRating
+    fields = ('rating',)
+
+class ArtistRatingDelete(LoginRequiredMixin, DeleteView):
+    model = ArtistRating
+
+    def get_success_url(self):
+        return reverse('ratings', kwargs={'user_id': self.object.user_id})
+
+@login_required
+def add_song_rating(request, song_id, user_id):
+    form = SongRatingForm(request.POST)
+    if form.is_valid():
+        new_song_rating = form.save(commit=False)
+        new_song_rating.user_id = user_id
+        song = genius.song(song_id)
+        song_title = song["song"]["title"]
+        song_artist = song["song"]["artist_names"]
+        song_description = song["song"]["description"]["plain"]
+        song_art_image = song["song"]["song_art_image_url"]
+        song_lyric_lookup = genius.search_song(song_title)
+        song_lyrics = song_lyric_lookup.lyrics
+
+        substring = song_title + " " + "Lyrics"
+        new_lyrics = song_lyrics.replace(substring, "")
+
+        for substring in range(len(new_lyrics) - 10, len(new_lyrics) - 1):
+            if new_lyrics[substring].isdigit():
+                new_edited_lyrics = new_lyrics[:substring]
+                break
+
+        new_song_rating.song_title = song_title
+        new_song_rating.song_lyrics = new_edited_lyrics
+        new_song_rating.song_art_image = song_art_image
+        new_song_rating.song_artist = song_artist
+        new_song_rating.save()
+    return redirect('ratings', user_id=user_id)
+
+@login_required
+def song_rating_detail(request, rating_id, user_id):
+    song_rating = SongRating.objects.get(id=rating_id, user_id=user_id)
+    return render(request, 'ratings/song_rating_detail.html', {
+        'song_rating_detail': song_rating
+    })
+
+class SongRatingUpdate(LoginRequiredMixin, UpdateView):
+    model = SongRating
+    fields = ('rating',)
+
+class SongRatingDelete(LoginRequiredMixin, DeleteView):
+    model = SongRating
+
+    def get_success_url(self):
+        return reverse('ratings', kwargs={'user_id': self.object.user_id})
+
