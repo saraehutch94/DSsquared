@@ -1,16 +1,15 @@
 {% extends 'base.html' %} 
 
 {% block content %}
-<div class="flex justify-center items-center relative top-48">
-  <form action="" method="POST" class="flex flex-col items-center">
+<div class="valign-wrapper center-block center-align container">
+  <h3 class="white-text">enter an artist</h3>
+  <form action="" method="POST">
     {% csrf_token %}
-    <label class="text-green-500 text-2xl">Search Artist or Title</label>
     {{ form.as_p }}
-    <input
+    <button
       type="submit"
-      value="Search"
-      class="text-lg rounded-full bg-green-500 w-20 mt-4 hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer text-white"
-    />
+      class="waves-effect waves-light btn"
+      >search</button>
   </form>
 </div>
 
