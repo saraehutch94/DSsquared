@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'music',
-    'django_browser_reload'
 ]
 
 MIDDLEWARE = [
