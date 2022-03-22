@@ -2,25 +2,18 @@
 
 <!-- flex justify-center -->
 
-<div class="valign-wrapper center-block center-align container white-text">
+<div class="container mx-auto text-gray-700 dark:text-white">
+  <div class="flex flex-col items-center">
     <img
       src="{{ song_art_image_url }}"
       alt="song cover art"
-      height="300px"
-      width="300px"
+      height="350px"
+      width="350px"
     />
-    <h4 class="font-semibold">{{ song_title }}</h4>
-    <h4>{{ song_artist }}</h4>
+    <div>{{ song_title }}</div>
+    <div>{{ song_artist }}</div>
     <div>{{ song_description }}</div>
     <div>{{ song_lyrics }}</div>
-
-    {% if user.is_authenticated %}
-    <form action="{% url 'add_lyric_rating' song_id user.id %}" method="POST">
-      {% csrf_token %}
-      {{ lyric_rating_form.as_p }}
-      <input type="submit" value="Add Rating"/>
-    </form>
-    {% endif %}
-
+  </div>
 </div>
 {% endblock %}
