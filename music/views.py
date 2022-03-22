@@ -187,6 +187,7 @@ def ratings(request, user_id):
         'song_ratings': song_ratings,
     })
 
+# lyric rating detail view function
 @login_required
 def lyric_rating_detail(request, rating_id, user_id):
     lyric_rating = LyricRatings.objects.get(id=rating_id, user_id=user_id)
