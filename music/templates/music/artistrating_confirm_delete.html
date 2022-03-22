@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="valign-wrapper center-block center-align container">
+
+    <h3 class="white-text">Are you sure you want to delete your rating for artist {{ object.artist_name }}?</h3>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Delete Rating" class="waves-effect waves-light btn"/>
+        <a href="{% url 'artist_rating_detail' object.id user.id %}" class="waves-effect waves-light red btn">Cancel</a>
+    </form>
+
+</div>
+
+{% endblock %}
