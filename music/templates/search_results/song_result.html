@@ -1,7 +1,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="valign-wrapper center-block center-align container">
     <h1>{{ song_title }} by <strong>{{ song_artist }}</strong></h1>
-    <img src="{{ song_art_image }}" alt="song image">
+    <img src="{{ song_art_image }}" height="300px" width="300px" alt="song image">
     <p>{{ song_lyrics }}</p>
+
+    {% if user.is_authenticated %}
+    <form action="{% url 'add_song_rating' song_id user.id %}" method="POST">
+        {% csrf_token %}
+        {{ song_rating_form.as_p }}
+        <input type="submit" value="Add Rating"/>
+    </form>
+    {% endif %}
+
+</div>
 {% endblock %}
