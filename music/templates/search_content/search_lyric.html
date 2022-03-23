@@ -1,14 +1,11 @@
 {% extends 'base.html' %} {% block content %}
 
-<div class="flex justify-center text-gray-700 dark:text-white relative top-48">
-  <form action="" method="POST" class="flex flex-col items-center">
-    {% csrf_token %} {{ form.as_p }}
-    <input
-      type="submit"
-      value="Search"
-      class="rounded-full bg-blue-600 text-white px-4 py-1 mt-4 hover:scale-105 transition-transform duration-300 ease-in-out cursor-pointer"
-    />
-  </form>
+<div class="valign-wrapper center-block center-align container">
+    <h3 class="white-text">enter some lyrics</h3>
+      <form action="" method="POST">
+        {% csrf_token %} {{ form.as_p }}
+      <button class="waves-effect waves-light btn" type="submit">search</button>
+      </form>
 </div>
 
 {% endblock %}
