@@ -1,15 +1,7 @@
-from re import L
 from django.shortcuts import render, redirect
-
-from music.models import LyricRatings, ArtistRating, SongRating
 from .forms import ArtistTitle, LyricForm, SongForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from .forms import LyricRatingForm, ArtistRatingForm, SongRatingForm
-from django.views.generic.edit import UpdateView, DeleteView
-from django.urls import reverse
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 import lyricsgenius
 client_access_token = "kLxktps7zneNyDod1aF4g-Uy_RDBblfNvL-CK-aACZzVJ6dXNNhqgQLfq-v6q3od"
@@ -38,17 +30,13 @@ def get_artist_title_result(request, artist_title):
     artist_img = artist.image_url
     artist_name = artist.name
     artist_songs = artist.songs
-    artist_id = artist.id
-    artist_rating_form = ArtistRatingForm
 
     return render(request, 'search_results/artist_title_results.html', {
-        'artist.id': artist_id,
         'artist_title': artist_title,
         'artist': artist,
         'artist_img': artist_img,
         'artist_name': artist_name,
-        'artist_songs': artist_songs,
-        'artist_rating_form': artist_rating_form
+        'artist_songs': artist_songs
     })
 
 
@@ -73,7 +61,6 @@ def lyric_result(request, lyrics):
     song = genius.song(song_id=song_id)
     song_description = song["song"]["description"]["plain"]
     song_art_image_url = song["song"]["song_art_image_url"]
-    lyric_rating_form = LyricRatingForm
 
     substring = song_title + " " + "Lyrics"
     new_lyrics = song_lyrics.replace(substring, "")
@@ -84,13 +71,11 @@ def lyric_result(request, lyrics):
             break
 
     return render(request, 'search_results/lyric_result.html', {
-        'song_id': song_id,
         'song_lyrics': new_edited_lyrics,
         'song_title': song_title,
         'song_artist': song_artist,
         'song_description': song_description,
-        'song_art_image_url': song_art_image_url,
-        'lyric_rating_form': lyric_rating_form
+        'song_art_image_url': song_art_image_url
     })
 
 
@@ -111,26 +96,15 @@ def song_result(request, song):
     song_title = song.title
     song_lyrics = song.lyrics
     song_art_image = song.song_art_image_url
-    song_id = song.id
-    song_rating_form = SongRatingForm
 
-    substring = song_title + " " + "Lyrics"
-    new_lyrics = song_lyrics.replace(substring, "")
-
-    for substring in range(len(new_lyrics) - 10, len(new_lyrics) - 1):
-        if new_lyrics[substring].isdigit():
-            new_edited_lyrics = new_lyrics[:substring]
-            break
 
     return render(request, 'search_results/song_result.html', {
-        'song_id': song_id,
         'song_artist': song_artist,
         'song_title': song_title,
-        'song_lyrics': new_edited_lyrics,
-        'song_art_image': song_art_image,
-        'song_rating_form': song_rating_form
+        'song_lyrics': song_lyrics,
+        'song_art_image': song_art_image
     })
-
+  
 def signup(request):
     error_message = ''
     if request.method == 'POST':
@@ -146,6 +120,7 @@ def signup(request):
     return render(request, 'registration/signup.html', { 
         'form': form, 'error': error_message 
     })
+
 
 @login_required
 def add_lyric_rating(request, song_id, user_id):
@@ -285,3 +260,4 @@ class SongRatingDelete(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('ratings', kwargs={'user_id': self.object.user_id})
+
