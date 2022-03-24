@@ -135,18 +135,20 @@ nav {
   font-size: 2rem;
 }
 
-.home-page {
-  display: flex;
-  justify-content: center;
-  text-align: center;
-}
-
 .home-btns {
   text-align: center;
 }
 
 .sidenav {
   background-color: #546e7a !important;
+}
+
+.card-title-bold {
+  font-weight: bold !important;
+}
+
+.white-text-btn {
+  color: white !important;
 }
 
 footer {
@@ -181,5 +183,8 @@ footer {
   .seventh-bar {
     height: 45px;
     width: 8px;
+  }
+  .left-align {
+    text-align: center !important;
   }
 }

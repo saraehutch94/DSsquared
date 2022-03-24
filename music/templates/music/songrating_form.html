@@ -4,13 +4,15 @@
 
 <div class="valign-wrapper center-block center-align container">
 
-    <h3 class="white-text">Update your rating for song {{ object.song_title }} by {{ object.song_artist }}:</h3>
+    <h3 class="white-text">Update your rating for song {{ rating_song_title }} by {{ rating_song_artist }}:</h3>
 
-    <form action="" method="POST">
+    <form action="{% url 'song_rating_update' rating_id user_id %}" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        <p class="range-field">
+            <input type="range" name="range" id="test5" min="0" max="100" value="{{ rating_rating }}"/>
+        </p>
         <input type="submit" value="Update Rating" class="waves-effect waves-light btn"/>
-        <a href="{% url 'song_rating_detail' object.id user.id %}" class="waves-effect waves-light red btn">Cancel</a>
+        <a href="{% url 'song_rating_detail' rating_id user_id %}" class="waves-effect waves-light red btn">Cancel</a>
     </form>
 
 </div>
