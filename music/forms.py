@@ -14,14 +14,14 @@ class SongForm(forms.Form):
 class LyricRatingForm(ModelForm):
     class Meta:
         model = LyricRatings
-        fields = ('rating',)
+        exclude = ('user', 'song_lyrics', 'song_title', 'song_artist', 'song_description', 'song_art_image_url', 'rating')
 
 class ArtistRatingForm(ModelForm):
     class Meta:
         model = ArtistRating
-        fields = ('rating',)
+        exclude = ('user', 'artist_img', 'artist_name', 'artist_songs', 'artist_description', 'rating')
 
 class SongRatingForm(ModelForm):
     class Meta:
         model = SongRating
-        fields = ('rating',)
+        exclude = ('user', 'song_title', 'song_lyrics', 'song_art_image', 'song_artist', 'rating')

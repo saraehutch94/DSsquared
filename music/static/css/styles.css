@@ -145,6 +145,14 @@ nav {
   background-color: #546e7a !important;
 }
 
+.card-title-bold {
+  font-weight: bold !important;
+}
+
+.white-text-btn {
+  color: white !important;
+}
+
 footer {
   margin: auto;
 }
@@ -177,5 +185,8 @@ footer {
   .seventh-bar {
     height: 45px;
     width: 8px;
+  }
+  .left-align {
+    text-align: center !important;
   }
 }
