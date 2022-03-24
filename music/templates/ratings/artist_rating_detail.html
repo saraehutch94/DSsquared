@@ -6,7 +6,7 @@
 
     <h3>Rating: {{ artist_rating_detail.rating }}</h3>
 
-    <img src="{{ artist_rating_detail.artist_img }}" height="200px" width="200px" alt="artist header image"/>
+    <img src="{{ artist_rating_detail.artist_img }}" height="300px" width="300px" alt="artist header image"/>
 
     <div class="white-text">Name: {{ artist_rating_detail.artist_name }}</div>
     <!-- For loop below prints songs in a list format but doesn't print each song individually with the details? -->
@@ -17,7 +17,7 @@
             {% endfor %}
     </div>
 
-    <a href="{% url 'artist_rating_update' artist_rating_detail.id user.id %}" class="waves-effect waves-light btn">Update Rating</a>
+    <a href="{% url 'artist_rating_update_page' artist_rating_detail.id user.id %}" class="waves-effect waves-light btn">Update Rating</a>
     <a href="{% url 'artist_rating_delete' artist_rating_detail.id user.id %}" class="waves-effect waves-light red btn">Delete Rating</a>
 
 </div>
