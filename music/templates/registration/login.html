@@ -1,13 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Login</h1>
+<div class="conatiner">
+    <h1 class="white-text">Login</h1>
 
-    <form action="{% url 'login' %}" method="POST">
+    <form class="col white-text " action="{% url 'login' %}" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="hidden" name="next" value="{{ next }}">
-        <input type="submit" value="Login" class="">
+        <input class="btn" type="submit" value="Login" >
     </form>
+</div>
 
 {% endblock %}
