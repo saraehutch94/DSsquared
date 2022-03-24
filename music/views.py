@@ -78,14 +78,9 @@ def lyric_result(request, lyrics):
     substring = song_title + " " + "Lyrics"
     new_lyrics = song_lyrics.replace(substring, "")
 
-    for substring in range(len(new_lyrics) - 10, len(new_lyrics) - 1):
-        if new_lyrics[substring].isdigit():
-            new_edited_lyrics = new_lyrics[:substring]
-            break
-
     return render(request, 'search_results/lyric_result.html', {
         'song_id': song_id,
-        'song_lyrics': new_edited_lyrics,
+        'song_lyrics': new_lyrics,
         'song_title': song_title,
         'song_artist': song_artist,
         'song_description': song_description,
@@ -117,16 +112,11 @@ def song_result(request, song):
     substring = song_title + " " + "Lyrics"
     new_lyrics = song_lyrics.replace(substring, "")
 
-    for substring in range(len(new_lyrics) - 10, len(new_lyrics) - 1):
-        if new_lyrics[substring].isdigit():
-            new_edited_lyrics = new_lyrics[:substring]
-            break
-
     return render(request, 'search_results/song_result.html', {
         'song_id': song_id,
         'song_artist': song_artist,
         'song_title': song_title,
-        'song_lyrics': new_edited_lyrics,
+        'song_lyrics': new_lyrics,
         'song_art_image': song_art_image,
         'song_rating_form': song_rating_form
     })
@@ -153,6 +143,7 @@ def add_lyric_rating(request, song_id, user_id):
     if form.is_valid():
         new_lyric_rating = form.save(commit=False)
         new_lyric_rating.user_id = user_id
+        new_lyric_rating.rating = request.POST.get("range")
         song = genius.song(song_id)
         lyrics = genius.lyrics(song_id)
         song_artists = song["song"]["artist_names"]
@@ -163,12 +154,7 @@ def add_lyric_rating(request, song_id, user_id):
         substring = song_title + " " + "Lyrics"
         new_lyrics = lyrics.replace(substring, "")
 
-        for substring in range(len(new_lyrics) -  10, len(new_lyrics) - 1):
-            if new_lyrics[substring].isdigit():
-                new_edited_lyrics = new_lyrics[:substring]
-                break
-
-        new_lyric_rating.song_lyrics = new_edited_lyrics
+        new_lyric_rating.song_lyrics = new_lyrics
         new_lyric_rating.song_title = song_title
         new_lyric_rating.song_artist = song_artists
         new_lyric_rating.song_description = song_description
@@ -194,9 +180,27 @@ def lyric_rating_detail(request, rating_id, user_id):
         'lyric_rating_detail': lyric_rating,
     })
 
-class LyricRatingUpdate(LoginRequiredMixin, UpdateView):
-    model = LyricRatings
-    fields = ('rating',)
+@login_required
+def lyric_rating_update_page(request, rating_id, user_id):
+    rating = LyricRatings.objects.get(id=rating_id, user_id=user_id)
+    rating_song_artist = rating.song_artist
+    rating_song_title = rating.song_title
+    rating_rating = rating.rating
+    return render(request, 'music/lyricratings_form.html', {
+        'rating_song_artist': rating_song_artist,
+        'rating_song_title': rating_song_title,
+        'rating_rating': rating_rating,
+        'rating_id': rating_id,
+        'user_id': user_id
+    })
+
+@login_required
+def lyric_rating_update(request, rating_id, user_id):
+    rating = LyricRatings.objects.get(id=rating_id, user_id=user_id)
+    rating.rating = request.POST.get("range")
+    rating.save()
+    return redirect('lyric_rating_detail', rating_id=rating_id, user_id=user_id)
+
 
 class LyricRatingDelete(LoginRequiredMixin, DeleteView):
     model = LyricRatings
@@ -210,11 +214,12 @@ def add_artist_rating(request, artist_id, user_id):
     if form.is_valid():
         new_artist_rating = form.save(commit=False)
         new_artist_rating.user_id = user_id
+        new_artist_rating.rating = request.POST.get("range")
         artist = genius.artist(artist_id)
-        artist_img = artist["artist"]["header_image_url"]
         artist_name = artist["artist"]["name"]
         artist_search_songs = genius.search_artist(artist_name, sort='popularity', max_songs=5, get_full_info=True)
         artist_songs = artist_search_songs.songs
+        artist_img = artist_search_songs.image_url
 
         new_artist_rating.artist_img = artist_img
         new_artist_rating.artist_name = artist_name
@@ -229,9 +234,23 @@ def artist_rating_detail(request, rating_id, user_id):
         'artist_rating_detail': artist_rating
     })
 
-class ArtistRatingUpdate(LoginRequiredMixin, UpdateView):
-    model = ArtistRating
-    fields = ('rating',)
+@login_required
+def artist_rating_update_page(request, rating_id, user_id):
+    rating = ArtistRating.objects.get(id=rating_id, user_id=user_id)
+    rating_artist_name = rating.artist_name
+    rating_rating = rating.rating
+    return render(request, 'music/artistrating_form.html', {
+        'rating_artist_name': rating_artist_name,
+        'rating_rating': rating_rating,
+        'rating_id': rating_id,
+        'user_id': user_id
+    })
+
+def artist_rating_update(request, rating_id, user_id):
+    rating = ArtistRating.objects.get(id=rating_id, user_id=user_id)
+    rating.rating = request.POST.get("range")
+    rating.save()
+    return redirect('artist_rating_detail', rating_id=rating_id, user_id=user_id)
 
 class ArtistRatingDelete(LoginRequiredMixin, DeleteView):
     model = ArtistRating
@@ -245,6 +264,7 @@ def add_song_rating(request, song_id, user_id):
     if form.is_valid():
         new_song_rating = form.save(commit=False)
         new_song_rating.user_id = user_id
+        new_song_rating.rating = request.POST.get("range")
         song = genius.song(song_id)
         song_title = song["song"]["title"]
         song_artist = song["song"]["artist_names"]
@@ -256,13 +276,8 @@ def add_song_rating(request, song_id, user_id):
         substring = song_title + " " + "Lyrics"
         new_lyrics = song_lyrics.replace(substring, "")
 
-        for substring in range(len(new_lyrics) - 10, len(new_lyrics) - 1):
-            if new_lyrics[substring].isdigit():
-                new_edited_lyrics = new_lyrics[:substring]
-                break
-
         new_song_rating.song_title = song_title
-        new_song_rating.song_lyrics = new_edited_lyrics
+        new_song_rating.song_lyrics = new_lyrics
         new_song_rating.song_art_image = song_art_image
         new_song_rating.song_artist = song_artist
         new_song_rating.save()
@@ -275,9 +290,24 @@ def song_rating_detail(request, rating_id, user_id):
         'song_rating_detail': song_rating
     })
 
-class SongRatingUpdate(LoginRequiredMixin, UpdateView):
-    model = SongRating
-    fields = ('rating',)
+def song_rating_update_page(request, rating_id, user_id):
+    rating = SongRating.objects.get(id=rating_id, user_id=user_id)
+    rating_song_artist = rating.song_artist
+    rating_song_title = rating.song_title
+    rating_rating = rating.rating
+    return render(request, 'music/songrating_form.html', {
+        'rating_song_artist': rating_song_artist,
+        'rating_song_title': rating_song_title,
+        'rating_rating': rating_rating,
+        "rating_id": rating_id,
+        "user_id": user_id
+    })
+
+def song_rating_update(request, rating_id, user_id):
+    rating = SongRating.objects.get(id=rating_id, user_id=user_id)
+    rating.rating = request.POST.get("range")
+    rating.save()
+    return redirect('song_rating_detail', rating_id=rating_id, user_id=user_id)
 
 class SongRatingDelete(LoginRequiredMixin, DeleteView):
     model = SongRating
