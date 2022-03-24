@@ -7,6 +7,7 @@ class ArtistRating(models.Model):
     artist_img = models.CharField(max_length=200)
     artist_name = models.CharField(max_length=100)
     artist_songs = models.TextField(max_length=500)
+    artist_description = models.TextField(max_length=1000)
     rating = models.IntegerField(default=0)
 
     def __str__(self):

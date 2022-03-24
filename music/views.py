@@ -39,6 +39,8 @@ def get_artist_title_result(request, artist_title):
     artist_name = artist.name
     artist_songs = artist.songs
     artist_id = artist.id
+    artist_search = genius.artist(artist.id)
+    artist_description = artist_search["artist"]["description"]["plain"]
     artist_rating_form = ArtistRatingForm
 
     return render(request, 'search_results/artist_title_results.html', {
@@ -48,6 +50,7 @@ def get_artist_title_result(request, artist_title):
         'artist_img': artist_img,
         'artist_name': artist_name,
         'artist_songs': artist_songs,
+        'artist_description': artist_description,
         'artist_rating_form': artist_rating_form
     })
 
@@ -217,6 +220,7 @@ def add_artist_rating(request, artist_id, user_id):
         new_artist_rating.rating = request.POST.get("range")
         artist = genius.artist(artist_id)
         artist_name = artist["artist"]["name"]
+        artist_description = artist["artist"]["description"]["plain"]
         artist_search_songs = genius.search_artist(artist_name, sort='popularity', max_songs=5, get_full_info=True)
         artist_songs = artist_search_songs.songs
         artist_img = artist_search_songs.image_url
@@ -224,6 +228,7 @@ def add_artist_rating(request, artist_id, user_id):
         new_artist_rating.artist_img = artist_img
         new_artist_rating.artist_name = artist_name
         new_artist_rating.artist_songs = artist_songs
+        new_artist_rating.artist_description = artist_description
         new_artist_rating.save()
     return redirect('ratings', user_id = user_id)
 
