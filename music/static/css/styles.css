@@ -75,6 +75,72 @@ nav {
   border-radius: 10px;
 }
 
+.whole-logo-home {
+  width: 145px;
+  transform: rotate(0.5turn);
+  display: flex;
+  justify-content: space-evenly;
+  margin: 0 auto;
+  padding-top: 60px;
+}
+
+.first-bar-home {
+  height: 110px;
+  width: 16px;
+  background-color: #5832fd;
+  border-radius: 10px;
+}
+
+.second-bar-home {
+  height: 115px;
+  width: 16px;
+  background-color: #2268fd;
+  border-radius: 10px;
+}
+
+.third-bar-home {
+  height: 120px;
+  width: 16px;
+  background-color: #04ccfe;
+  border-radius: 10px;
+}
+
+.fourth-bar-home {
+  height: 105px;
+  width: 16px;
+  background-color: #02eef4;
+  border-radius: 10px;
+}
+
+.fifth-bar-home {
+  height: 110px;
+  width: 16px;
+  background-color: #78fdfa;
+  border-radius: 10px;
+}
+
+.sixth-bar-home {
+  height: 117px;
+  width: 16px;
+  background-color: #5ddea6;
+  border-radius: 10px;
+}
+
+.seventh-bar-home {
+  height: 110px;
+  width: 16px;
+  background-color: #22c55e;
+  border-radius: 10px;
+}  
+
+.material-icons {
+  font-size: 2rem;
+}
+
+.home-btns {
+  text-align: center;
+}
+
 .sidenav {
   background-color: #546e7a !important;
 }
