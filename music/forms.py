@@ -19,7 +19,7 @@ class LyricRatingForm(ModelForm):
 class ArtistRatingForm(ModelForm):
     class Meta:
         model = ArtistRating
-        exclude = ('user', 'artist_img', 'artist_name', 'artist_songs', 'rating')
+        exclude = ('user', 'artist_img', 'artist_name', 'artist_songs', 'artist_description', 'rating')
 
 class SongRatingForm(ModelForm):
     class Meta:
