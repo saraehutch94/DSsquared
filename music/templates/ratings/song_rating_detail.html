@@ -2,18 +2,26 @@
 
 {% block content %}
 
-<div class="valign-wrapper center-block center-align container">
+<div class="valign-wrapper center-block center-align container white-text">
 
-    <h3 class="white-text">Rating: {{ song_rating_detail.rating }}</h3>
-
-    <img src="{{ song_rating_detail.song_art_image }}" height="300px" width="300px" class="responsive-img"/>
-
-    <div class="white-text">Title: {{ song_rating_detail.song_title }}</div>
-    <div class="white-text">Artist: {{ song_rating_detail.song_artist }}</div>
-    <div class="white-text">Lyrics: {{ song_rating_detail.song_lyrics }}</div>
-
-    <a href="{% url 'song_rating_update_page' song_rating_detail.id user.id %}" class="waves-effect waves-light btn">Update Rating</a>
-    <a href="{% url 'song_rating_delete' song_rating_detail.id user.id %}" class="waves-effect waves-light red btn">Delete Rating</a>
+    <div class="row">
+        <div class="col m6">
+            <img src="{{ song_rating_detail.song_art_image }}" height="400px" width="400px" alt="song cover art"
+                class="responsive-img" />
+        </div>
+        <div class="col m6 left-align">
+            <h5>Song: <span class="cyan-text text-lighten-3">{{ song_rating_detail.song_title }}</span></h5>
+            <h5>Artist: <span class="cyan-text text-lighten-3">{{ song_rating_detail.song_artist }}</span></h5>
+            <h5>Rating: <span class="cyan-text text-lighten-3">{{ song_rating_detail.rating }} / 100</span></h5>
+            <a href="{% url 'song_rating_update_page' song_rating_detail.id user.id %}"
+                class="waves-effect waves-light btn">Update Rating</a>
+            <a href="{% url 'song_rating_delete' song_rating_detail.id user.id %}"
+                class="waves-effect waves-light red btn">Delete Rating</a>
+        </div>
+    </div>
+    <div class="row">
+        <div>Lyrics: {{ song_rating_detail.song_lyrics }}</div>
+    </div>
 </div>
 
 {% endblock %}
