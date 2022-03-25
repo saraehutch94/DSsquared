@@ -190,3 +190,15 @@ footer {
     text-align: center !important;
   }
 }
+
+.logo-name {
+  text-align: center;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+song-details {
+  padding-top: 70px;
+}

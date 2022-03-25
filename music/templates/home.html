@@ -5,27 +5,31 @@
 
 <div class="home-page">
 
-    <div class="whole-logo-home">
-        <div class="first-bar-home"></div>
-        <div class="second-bar-home"></div>
-        <div class="third-bar-home"></div>
-        <div class="fourth-bar-home"></div>
-        <div class="fifth-bar-home"></div>
-        <div class="sixth-bar-home"></div>
-        <div class="seventh-bar-home"></div>
-    </div>
+        <div class="logo-name">
+                <h2>DS<sup>2</sup></h2>
+        </div>
 
-    <div class="home-btns">
-    <a href="{% url 'search_artist_title' %}" class="waves-effect waves-light btn-large"><i
-            class="material-icons">person</i> Search by Artist</a>
+        <div class="whole-logo-home">
+                <div class="first-bar-home"></div>
+                <div class="second-bar-home"></div>
+                <div class="third-bar-home"></div>
+                <div class="fourth-bar-home"></div>
+                <div class="fifth-bar-home"></div>
+                <div class="sixth-bar-home"></div>
+                <div class="seventh-bar-home"></div>
+        </div>
 
-    <a href="{% url 'search_lyric' %}" class="waves-effect waves-light btn-large"><i
-            class="material-icons">queue_music</i> Search By Lyric</a>
+        <div class="home-btns">
+                <a href="{% url 'search_artist_title' %}" class="waves-effect waves-light btn-large"><i
+                                class="material-icons">person</i> Search by Artist</a>
 
-    <a href="{% url 'search_song' %}" class="waves-effect waves-light btn-large"><i
-            class="material-icons">library_music</i> Search By Song</a>
+                <a href="{% url 'search_lyric' %}" class="waves-effect waves-light btn-large"><i
+                                class="material-icons">queue_music</i> Search By Lyric</a>
 
-</div>
+                <a href="{% url 'search_song' %}" class="waves-effect waves-light btn-large"><i
+                                class="material-icons">library_music</i> Search By Song</a>
+
+        </div>
 </div>
 
 {% endblock %}
