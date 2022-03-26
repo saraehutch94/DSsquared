@@ -5,48 +5,60 @@
 <div class="valign-wrapper center-block center-align container">
 
     <div class="row">
-       <div class="col s12 m12">
-           <div class="card blue-grey darken-1">
-               <div class="card-content">
-                   <span class="card-title-bold card-title green-text text-accent-4">lyric ratings</span>
-                   <p>
-                    {% for rating in lyric_ratings %}
-                    <a href="{% url 'lyric_rating_detail' rating.id user.id %}">
-                        <div>{{ rating.song_title }} - {{ rating.song_artist }}</div>
-                    </a>
-                    {% endfor %}
+        <div class="col s12 m12">
+            <div class="card blue-grey darken-1">
+                <div class="card-content">
+                    <span class="card-title-bold card-title green-text text-accent-4">lyric ratings</span>
+                    <p>
+                        {% if lyric_ratings %}
+                        {% for rating in lyric_ratings %}
+                        <a href="{% url 'lyric_rating_detail' rating.id user.id %}">
+                            <div>{{ rating.song_title }} - {{ rating.song_artist }}</div>
+                        </a>
+                        {% endfor %}
+                        {% else %}
+                        <p>No Song Rating</p>
+                        {% endif %}
                     </p>
-               </div>
-           </div>
-       </div>
-       <div class="col s12 m12">
-           <div class="card blue-grey darken-1">
-               <div class="card-content">
-                   <span class="card-title-bold card-title cyan-text text-lighten-3">artist ratings</span>
-                   <p>
-                    {% for rating in artist_ratings %}
-                    <a href="{% url 'artist_rating_detail' rating.id user.id %}">
-                        <div>{{ rating.artist_name }}</div>
-                    </a>
-                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m12">
+            <div class="card blue-grey darken-1">
+                <div class="card-content">
+                    <span class="card-title-bold card-title cyan-text text-lighten-3">artist ratings</span>
+                    <p>
+                        {% if artist_ratings %}
+                        {% for rating in artist_ratings %}
+                        <a href="{% url 'artist_rating_detail' rating.id user.id %}">
+                            <div>{{ rating.artist_name }}</div>
+                        </a>
+                        {% endfor %}
+                        {% else %}
+                        <p>No Artist Rating</p>
+                        {% endif %}
                     </p>
-               </div>
-           </div>
-       </div>
-       <div class="col s12 m12">
-           <div class="card blue-grey darken-1">
-               <div class="card-content">
-                   <span class="card-title-bold card-title deep-purple-text text-accent-3">song ratings</span>
-                   <p>
-                    {% for rating in song_ratings %}
-                    <a href="{% url 'song_rating_detail' rating.id user.id %}">
-                        <div>{{ rating.song_title }} - {{ rating.song_artist }}</div>
-                    </a>
-                    {% endfor %}
-                   </p>
-               </div>
-           </div>
-       </div>
+                </div>
+            </div>
+        </div>
+        <div class="col s12 m12">
+            <div class="card blue-grey darken-1">
+                <div class="card-content">
+                    <span class="card-title-bold card-title deep-purple-text text-accent-3">song ratings</span>
+                    <p>
+                        {% if song_ratings %}
+                        {% for rating in song_ratings %}
+                        <a href="{% url 'song_rating_detail' rating.id user.id %}">
+                            <div>{{ rating.song_title }} - {{ rating.song_artist }}</div>
+                        </a>
+                        {% endfor %}
+                        {% else %}
+                        <p>No Artist Rating</p>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
