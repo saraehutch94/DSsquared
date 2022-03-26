@@ -164,6 +164,7 @@ def add_lyric_rating(request, song_id, user_id):
         new_lyric_rating.song_art_image_url = song_art_image_url
         new_lyric_rating.save()
     return redirect('ratings', user_id = user_id)
+    
 
 @login_required
 def ratings(request, user_id):
